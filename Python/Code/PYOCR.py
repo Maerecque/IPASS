@@ -20,8 +20,8 @@ class PYOCR:
     def pick_color(self,event,x,y,flags,param):      #https://answers.opencv.org/question/134248/how-to-define-the-lower-and-upper-range-of-a-color/?answer=134284
         if event == cv2.EVENT_LBUTTONDOWN:
             pixel = image_hsv[y, x]
-            upper = np.array([pixel[0] + 10, pixel[1] + 10, pixel[2] + 20])
-            lower = np.array([pixel[0] - 10, pixel[1] - 10, pixel[2] - 20])
+            upper = np.array([pixel[0] + 40, pixel[1] + 20, pixel[2] + 40])
+            lower = np.array([pixel[0] - 40, pixel[1] - 20, pixel[2] - 40])
             image_mask = cv2.inRange(image_hsv, lower, upper)
             cv2.imwrite(self.temp_src, image_mask)
             for lang in self.langs:
@@ -29,10 +29,7 @@ class PYOCR:
                     print("Using another Font")
                 else:
                     cv2.destroyAllWindows()
-                    self.result = {
-                        'analysis': self.analyse(),
-                        'font': lang
-                    }
+                    self.result = self.analyse()
                     return
 
     def analyse(self):

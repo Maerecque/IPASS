@@ -18,11 +18,12 @@ class PyTess:
         pdfReader = PyPDF2.PdfFileReader(pdfFileObj)
         pageObj = pdfReader.getPage(0)
         content_of_page = pageObj.extractText()
+        if(output == ''): return("Are you sure this is a scanned document?\n Because I couldn't find any text in this image. :(")
+        else:
+            #compare the found text to the original file
+            m = SequenceMatcher(None, content_of_page, output)
+            percentage = float(m.ratio()) * 100
 
-        #compare the found text to the original file
-        m = SequenceMatcher(None, content_of_page, output)
-        percentage = float(m.ratio()) * 100
-
-        return percentage
+            return percentage
 
 
