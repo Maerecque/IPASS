@@ -1,7 +1,8 @@
-from OPENALPR import OPENALPR
-from PyTesseract import PyTess
+from OPENALPR import OPENALPR #use OPENALPR for license plates
+from PyTesseract import PyTess #use PyTess for documents
+from PYOCR import PYOCR #use PYOCR for Natural Images
 
-url = '../Images/Text file/Lorem-Ipsum.jpg'
+url = '../Images/Natural Images/Apple.jpg'
 
-yeet = PyTess(url)
+yeet = PYOCR(url)
 print(yeet.read_text())
