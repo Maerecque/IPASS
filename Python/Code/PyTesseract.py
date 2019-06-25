@@ -1,20 +1,28 @@
-#for text files search
-try:
-    from PIL import Image
-except ImportError:
-    import Image
+from PIL import Image
 import pytesseract
 from difflib import SequenceMatcher
+import PyPDF2
 
-pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
-output = pytesseract.image_to_string(Image.open('../Images/Text file/Lorem-Ipsum.jpg'))
+class PyTess:
+    def __init__(self,url):
+        pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
+        self.url = url
 
-#original text from lorem ipsum
-text1 = open('../Images/Text file/Content.txt').read()
-#compare the found text to the original file
-m = SequenceMatcher(None, text1, output)
-percentage = float(m.ratio()) * 100
+    def read_text(self):
+        #string of the read text from the file picture
+        output = pytesseract.image_to_string(Image.open(self.url))
 
-print(percentage,'% correlation')
+        #read original file
+        # text1 = open('../Images/Text file/Content.txt').read() #old version using an extracted txt file
+        pdfFileObj = open('../Images/Text file/Lorem-Ipsum.pdf', 'rb')
+        pdfReader = PyPDF2.PdfFileReader(pdfFileObj)
+        pageObj = pdfReader.getPage(0)
+        content_of_page = pageObj.extractText()
+
+        #compare the found text to the original file
+        m = SequenceMatcher(None, content_of_page, output)
+        percentage = float(m.ratio()) * 100
+
+        return percentage
 
 
