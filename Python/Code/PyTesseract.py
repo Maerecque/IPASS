@@ -21,6 +21,7 @@ class PyTess:
         if(output == ''): return("Are you sure this is a scanned document?\n Because I couldn't find any text in this image. :(")
         else:
             #compare the found text to the original file
+            print(output)
             m = SequenceMatcher(None, content_of_page, output)
             percentage = float(m.ratio()) * 100
 
