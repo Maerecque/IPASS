@@ -6,7 +6,7 @@ from tkinter.filedialog import askopenfilename
 
 #open a window to select a picture on .jpg format
 Tk().withdraw()
-filename = askopenfilename(initialdir = '../Images/Natural Images/',title = "Select file",filetypes = (("jpeg files","*.jpg"),("all files","*.*"))) # show an "Open" dialog box and return the path to the selected file
+filename = askopenfilename(initialdir = '../Images/Natural Images/',title = "Select a .jpg file",filetypes = (("jpeg files","*.jpg"),("all files","*.*"))) # show an "Open" dialog box and return the path to the selected file
 url = filename
 
 top = Tk()
