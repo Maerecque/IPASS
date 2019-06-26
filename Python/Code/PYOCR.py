@@ -28,6 +28,7 @@ class PYOCR:
                 if (self.analyse() == ''):
                     print("Using another Font")
                 else:
+                    print("Using font:",self.langs[self.i])
                     cv2.destroyAllWindows()
                     self.result = self.analyse()
                     return
