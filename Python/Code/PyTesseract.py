@@ -11,20 +11,24 @@ class PyTess:
     def read_text(self):
         #string of the read text from the file picture
         output = pytesseract.image_to_string(Image.open(self.url))
+        if(output == ''): return("Are you sure this is a scanned document?\n Because I couldn't find any text in this image.")
+        return output
 
-        #read original file
-        # text1 = open('../Images/Text file/Content.txt').read() #old version using an extracted txt file
-        pdfFileObj = open('../Images/Text file/Lorem-Ipsum.pdf', 'rb')
-        pdfReader = PyPDF2.PdfFileReader(pdfFileObj)
-        pageObj = pdfReader.getPage(0)
-        content_of_page = pageObj.extractText()
-        if(output == ''): return("Are you sure this is a scanned document?\n Because I couldn't find any text in this image. :(")
+    def compare(self,pdf_file):
+        print("Comparing")
+        print(pdf_file)
+        #string of the read text from the file picture
+        output = pytesseract.image_to_string(Image.open(self.url))
+        if(output == ''): return("Are you sure this is a scanned document?\n Because I couldn't find any text in this image.")
         else:
+            print("Text was found on the image, now converting the pdf file.")
+            # read original file
+            pdfFileObj = open(pdf_file, 'rb')
+            pdfReader = PyPDF2.PdfFileReader(pdfFileObj)
+            pageObj = pdfReader.getPage(0)
+            content_of_page = pageObj.extractText()  # convert text from the pdf file to a Python string
             #compare the found text to the original file
-            print(output)
             m = SequenceMatcher(None, content_of_page, output)
             percentage = float(m.ratio()) * 100
-
             return percentage
-
 
