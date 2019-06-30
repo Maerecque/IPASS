@@ -4,18 +4,41 @@ from difflib import SequenceMatcher
 import PyPDF2
 
 class PyTess:
+    """
+    This class is for the use of scanned documents.
+    """
     def __init__(self,url):
+        """
+        The constructor for PyTess class.
+
+        Parameters:
+            url (string): The path to the chosen jpg file.
+        """
         pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
         self.url = url
 
     def read_text(self):
-        #string of the read text from the file picture
+        """
+        The function to extract text from the chosen jpg file.
+
+        Returns:
+            output: If the OCR is able to extract text from the image, it will return this text. Otherwise it will give off an error message.
+        """
         output = pytesseract.image_to_string(Image.open(self.url))
-        if(output == ''): return("Are you sure this is a scanned document?\n Because I couldn't find any text in this image.")
+        if(output == ''):
+            output = "Are you sure this is a scanned document?\n Because I couldn't find any text in this image."
         return output
 
     def compare(self,pdf_file):
-        print("Comparing")
+        """
+        The function to extract and compare text from the chosen pdf file, the chosen pdf file has to be the same documents as the scanned image, otherwise you should use the function read_text().
+
+        Parameters:
+            pdf_file (string): the path to the chosen pdf file for comparison.
+
+        Returns:
+            percentage: the percentage of the correlation between the pdf and jpg file. The higher the output the higher the correlation.
+        """
         print(pdf_file)
         #string of the read text from the file picture
         output = pytesseract.image_to_string(Image.open(self.url))
@@ -31,4 +54,3 @@ class PyTess:
             m = SequenceMatcher(None, content_of_page, output)
             percentage = float(m.ratio()) * 100
             return percentage
-
