@@ -2,8 +2,8 @@ from PIL import Image
 import pytesseract
 from difflib import SequenceMatcher
 import PyPDF2
-
-class PyTess:
+from OCR import OCR
+class PyTess(OCR):
     """
     This class is for the use of scanned documents.
     """
@@ -14,6 +14,7 @@ class PyTess:
         Parameters:
             url (string): The path to the chosen jpg file.
         """
+        super(PyTess, self).__init__(url)
         pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
         self.url = url
 

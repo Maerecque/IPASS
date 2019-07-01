@@ -3,8 +3,19 @@ import sys
 import pyocr
 import cv2
 import numpy as np
-class PYOCR:
+from OCR import OCR
+class PYOCR(OCR):
+    """
+    This class is for the use of natural images.
+    """
     def __init__(self,url):
+        """
+            The constructor for PYOCR class.
+
+            Parameters:
+                url (string): The path to the chosen jpg file.
+        """
+        super(PYOCR, self).__init__(url)
         pyocr.tesseract.TESSERACT_CMD = r'C:\Program Files\Tesseract-OCR\tesseract.exe' #path to your OCR tool executable
         self.tools = pyocr.get_available_tools()
         if len(self.tools) == 0:
@@ -18,6 +29,19 @@ class PYOCR:
         self.result = None
 
     def pick_color(self,event,x,y,flags,param):      #https://answers.opencv.org/question/134248/how-to-define-the-lower-and-upper-range-of-a-color/?answer=134284
+        """
+        The function to convert the original image to a temporary high-contrast jpg file, for better visability for the OCR.
+
+        Parameters:
+            event (cv2.event): the parameter that will register if the left-mouse button is pressed inside of the cv2 window.
+            x (int): the x-coordinate of the position of the mouse on screen
+            y (int): the y-coordinate of the position of the mouse on screen
+            flags (int): empty string is needed for the use of setMouseCallback
+            param (Void): empty
+
+        Returns:
+            result (string): found text in the high-contrast picture, if it's able to find any.
+        """
         self.i = 0
         if event == cv2.EVENT_LBUTTONDOWN:
             pixel = image_hsv[y, x]                 #take the hsv values of the selected pixel
@@ -37,6 +61,12 @@ class PYOCR:
                     return
 
     def analyse(self):                              #try to read text of the current picture
+        """
+        The function used to extract text from the temporary jpg file.
+
+        Returns:
+            txt (string): all text that was extracted from the image, will return an empty string if no text was found.
+        """
         self.txt = self.tool.image_to_string(Image.open(self.temp_src),
                                    lang = self.langs[self.i],
                                    builder = pyocr.builders.TextBuilder())
@@ -46,9 +76,9 @@ class PYOCR:
         global image_hsv, pixel  #needed for Mouse Callback
         image_src = cv2.imread(self.url)
         image_hsv = cv2.cvtColor(image_src, cv2.COLOR_BGR2HSV)
-        cv2.namedWindow('hsv', cv2.WINDOW_NORMAL)
-        cv2.setMouseCallback('hsv', self.pick_color)
-        cv2.imshow('hsv', image_src)
+        cv2.namedWindow('Click around your text', cv2.WINDOW_NORMAL)
+        cv2.setMouseCallback('Click around your text', self.pick_color)
+        cv2.imshow('Click around your text', image_src)
         cv2.waitKey(0)
         cv2.destroyAllWindows()
 
