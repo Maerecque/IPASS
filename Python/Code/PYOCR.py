@@ -16,7 +16,7 @@ class PYOCR(OCR):
                 url (string): The path to the chosen jpg file.
         """
         super(PYOCR, self).__init__(url)
-        pyocr.tesseract.TESSERACT_CMD = r'C:\Program Files\Tesseract-OCR\tesseract.exe' #path to your OCR tool executable
+        pyocr.tesseract.TESSERACT_CMD = self.OCR_path
         self.tools = pyocr.get_available_tools()
         if len(self.tools) == 0:
             print("No OCR tool found")

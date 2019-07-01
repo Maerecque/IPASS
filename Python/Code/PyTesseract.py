@@ -15,7 +15,7 @@ class PyTess(OCR):
             url (string): The path to the chosen jpg file.
         """
         super(PyTess, self).__init__(url)
-        pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
+        pytesseract.pytesseract.tesseract_cmd = self.OCR_path
         self.url = url
 
     def read_text(self):
