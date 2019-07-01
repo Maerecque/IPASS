@@ -1,4 +1,4 @@
-# `OCR` application
+# OCR application
 ## HU AAI IPASS 2019
 
 **_De app_**<br>
@@ -12,10 +12,13 @@ Voor de pip-commands die nodig zijn voor gebruik, zullen de volgende commando's 
 	`pip install pyocr`<br>
 	`pip install numpy`<br>
 	`pip install requests`<br>
-	`pip install SequenceMatcher`<br>
+	`pip install difflib`<br>
 	`pip install PyPDF2`<br>
 	`pip install pytesseract`<br>
+	`pip install Pillow`<br>
+	`pip install pandas`<br>
+	`pip install opencv-python`<br>
     (`pip install git+https://github.com/Maerecque/IPASS.git`)
 
-2. Voor het werken van de OCR engine zult u een OCR geÃ¯nstalleerd moeten hebben, voor de testfase van deze app is de volgende OCR engine geÃ¯nstalleerd op de PC: **https://github.com/UB-Mannheim/tesseract/wiki**. Het is belangrijk dat u de OCR engine in de volgende map plaats 'C:\Program Files\', anders zal het script niet bij de OCR engine kunnen komen. 
+2. Voor het werken van de OCR engine zult u een OCR geïnstalleerd moeten hebben, voor de testfase van deze app is de volgende OCR engine geïnstalleerd op de PC: **https://github.com/UB-Mannheim/tesseract/wiki**. Het is belangrijk dat u de OCR engine in de volgende map plaats 'C:\Program Files\', anders zal het script niet bij de OCR engine kunnen komen. Als deze locatie verandert zou willen worden kan dit gedaan worden in het bestand 'OCR.py' onder de variabele self.ocr. 
 
